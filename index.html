@@ -1,266 +1,123 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>23 Nisan Kutlama</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #e30b17; /* Türk bayrağının kırmızı arka planı */
-            font-family: Arial, sans-serif;
-            background-image: url('atatürk-ve-cocuklar.jpg'); /* Atatürk ve çocuklar fotoğrafının yolu */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            opacity: 0.3; /* Fotoğrafın saydamlığı */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>23 Nisan Kutlama</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #e30a17;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      position: relative;
+      height: 100vh;
+    }
 
-        /* Mesaj stil */
-        .message {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3em;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            z-index: 10;
-            margin: 0;
-        }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
 
-        .message-two {
-            position: absolute;
-            top: 35%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2.5em;
-            font-family: 'Caveat', cursive;
-            color: white;
-            z-index: 11;
-            margin: 0;
-        }
+    .title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 0;
+    }
 
-        .message-bottom {
-            position: absolute;
-            bottom: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2em;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            z-index: 12;
-            margin: 0;
-        }
+    .subtitle {
+      font-size: 2.5rem;
+      font-family: 'Caveat', cursive;
+      margin: 20px 0;
+    }
 
-        /* Konfeti stil */
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #FFD700;
-            animation: confetti 3s ease-in-out infinite;
-        }
+    .signature {
+      font-size: 1.8rem;
+      margin-top: 60px;
+    }
 
-        /* Balonlar */
-        .balloon {
-            position: absolute;
-            width: 60px;
-            height: 90px;
-            background-color: #ff6347;
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
+    .confetti, .star, .flag {
+      position: absolute;
+      z-index: 1;
+    }
 
-        /* Bayraklar */
-        .flag {
-            position: absolute;
-            width: 120px;
-            height: 80px;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Flag_of_Turkey.svg/1024px-Flag_of_Turkey.svg.png');
-            background-size: cover;
-            animation: swing 4s ease-in-out infinite;
-        }
+    .confetti {
+      width: 8px;
+      height: 8px;
+      background-color: gold;
+      animation: confetti-fall 3s linear infinite;
+    }
 
-        /* Kurdeler */
-        .ribbon {
-            position: absolute;
-            width: 120px;
-            height: 10px;
-            background-color: #FFD700;
-            animation: flutter 3s ease-in-out infinite;
-        }
+    .star {
+      width: 15px;
+      height: 15px;
+      background: white;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      animation: star-float 5s linear infinite;
+    }
 
-        /* Yıldızlar */
-        .star {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: white;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            animation: starFloat 5s ease-in-out infinite;
-        }
+    .flag {
+      width: 80px;
+      height: 50px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Flag_of_Turkey.svg/1024px-Flag_of_Turkey.svg.png');
+      background-size: cover;
+      animation: flag-sway 4s ease-in-out infinite;
+    }
 
-        /* Animasyonlar */
-        @keyframes float {
-            0% {
-                transform: translateY(100vh);
-            }
-            100% {
-                transform: translateY(-100px);
-            }
-        }
+    @keyframes confetti-fall {
+      0% { transform: translateY(0) rotate(0); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
 
-        @keyframes swing {
-            0%, 100% {
-                transform: rotate(0deg);
-            }
-            50% {
-                transform: rotate(10deg);
-            }
-        }
+    @keyframes star-float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
 
-        @keyframes flutter {
-            0%, 100% {
-                transform: rotate(0deg);
-            }
-            50% {
-                transform: rotate(15deg);
-            }
-        }
+    @keyframes flag-sway {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(10deg); }
+    }
 
-        @keyframes starFloat {
-            0% {
-                transform: translateY(100vh);
-            }
-            100% {
-                transform: translateY(-100px);
-            }
-        }
+    @media (max-width: 768px) {
+      .title, .subtitle { font-size: 2rem; }
+      .signature { font-size: 1.5rem; }
+    }
 
-        @keyframes confetti {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(500px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .message {
-                font-size: 2.5em;
-            }
-
-            .message-two {
-                font-size: 1.5em;
-            }
-
-            .message-bottom {
-                font-size: 1.5em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .message {
-                font-size: 2em;
-            }
-
-            .message-two {
-                font-size: 1.2em;
-            }
-
-            .message-bottom {
-                font-size: 1.2em;
-            }
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    @media (max-width: 480px) {
+      .title, .subtitle { font-size: 1.5rem; }
+      .signature { font-size: 1.2rem; }
+    }
+  </style>
 </head>
 <body>
-    <div class="message">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın kutlu olsun oğlum!</div>
-    <div class="message-two">Seni çok seviyorum, oğlum! ❤️😊</div>
-    <div class="message-bottom">Baban...</div>
+  <div class="container">
+    <h1 class="title">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın Kutlu Olsun!</h1>
+    <h2 class="subtitle">Seni çok seviyorum, oğluğum! ❤️😊</h2>
+    <p class="signature">Baban...</p>
+  </div>
 
-    <script>
-        function createBalloon() {
-            const balloon = document.createElement('div');
-            balloon.classList.add('balloon');
-            balloon.style.left = Math.random() * window.innerWidth + 'px';
-            document.body.appendChild(balloon);
+  <script>
+    function createElement(className) {
+      const el = document.createElement('div');
+      el.className = className;
+      el.style.left = Math.random() * window.innerWidth + 'px';
+      el.style.top = Math.random() * window.innerHeight + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 6000);
+    }
 
-            // Balloon animation
-            setTimeout(() => {
-                balloon.remove();
-            }, 6000); // Balloon disappears after 6 seconds
-        }
-
-        function createFlag() {
-            const flag = document.createElement('div');
-            flag.classList.add('flag');
-            flag.style.left = Math.random() * window.innerWidth + 'px';
-            flag.style.top = Math.random() * window.innerHeight + 'px';
-            document.body.appendChild(flag);
-
-            // Flag disappears after 10 seconds
-            setTimeout(() => {
-                flag.remove();
-            }, 10000);
-        }
-
-        function createRibbon() {
-            const ribbon = document.createElement('div');
-            ribbon.classList.add('ribbon');
-            ribbon.style.left = Math.random() * window.innerWidth + 'px';
-            ribbon.style.top = Math.random() * window.innerHeight + 'px';
-            document.body.appendChild(ribbon);
-
-            // Ribbon disappears after 8 seconds
-            setTimeout(() => {
-                ribbon.remove();
-            }, 8000);
-        }
-
-        function createStar() {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            star.style.left = Math.random() * window.innerWidth + 'px';
-            star.style.top = Math.random() * window.innerHeight + 'px';
-            document.body.appendChild(star);
-
-            // Star disappears after 6 seconds
-            setTimeout(() => {
-                star.remove();
-            }, 6000);
-        }
-
-        function createConfetti() {
-            const confetti = document.createElement('div');
-            confetti.classList.add('confetti');
-            confetti.style.left = Math.random() * window.innerWidth + 'px';
-            confetti.style.top = Math.random() * window.innerHeight + 'px';
-            document.body.appendChild(confetti);
-
-            // Confetti disappears after 3 seconds
-            setTimeout(() => {
-                confetti.remove();
-            }, 3000);
-        }
-
-        // Create elements at intervals
-        setInterval(createBalloon, 1500); // Balloons appear every 1.5 seconds
-        setInterval(createFlag, 3000); // Flags appear every 3 seconds
-        setInterval(createRibbon, 2000); // Ribbons appear every 2 seconds
-        setInterval(createStar, 1000); // Stars appear every second
-        setInterval(createConfetti, 100); // Confetti appears every 100ms
-    </script>
+    setInterval(() => createElement('confetti'), 100);
+    setInterval(() => createElement('star'), 800);
+    setInterval(() => createElement('flag'), 2000);
+  </script>
 </body>
 </html>
