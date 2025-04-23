@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23 Nisan Kutlama</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #87CEEB;
+            font-family: Arial, sans-serif;
+        }
+        .balloon {
+            position: absolute;
+            width: 60px;
+            height: 90px;
+            background-color: #ff6347;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        .flag {
+            position: absolute;
+            width: 120px;
+            height: 80px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Flag_of_Turkey.svg/1024px-Flag_of_Turkey.svg.png');
+            background-size: cover;
+            animation: swing 4s ease-in-out infinite;
+        }
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            z-index: 10;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(100vh);
+            }
+            100% {
+                transform: translateY(-100px);
+            }
+        }
+        @keyframes swing {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="message">Bayramın kutlu olsun oğlum! Seni çok seviyorum</div>
+    
+    <script>
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(balloon);
+
+            // Balloon animation
+            setTimeout(() => {
+                balloon.remove();
+            }, 6000); // Balloon disappears after 6 seconds
+        }
+
+        function createFlag() {
+            const flag = document.createElement('div');
+            flag.classList.add('flag');
+            flag.style.left = Math.random() * window.innerWidth + 'px';
+            flag.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(flag);
+
+            // Flag disappears after 10 seconds
+            setTimeout(() => {
+                flag.remove();
+            }, 10000);
+        }
+
+        // Create balloons and flags every 2 seconds
+        setInterval(createBalloon, 2000);
+        setInterval(createFlag, 3000);
+    </script>
+</body>
+</html>
