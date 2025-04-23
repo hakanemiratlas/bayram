@@ -17,16 +17,23 @@
       height: 100vh;
     }
 
-    .bayrak-banner {
+    .bayrak-banner, .bayrak-banner-bottom {
       width: 100%;
       height: 100px;
       background-image: url("111-bu-ipe-dizili-ucgen-turk-bayragi-imalati kopya.png");
       background-repeat: repeat-x;
       background-size: auto 100px;
       position: absolute;
-      top: 0;
       left: 0;
       z-index: 20;
+    }
+
+    .bayrak-banner {
+      top: 0;
+    }
+
+    .bayrak-banner-bottom {
+      bottom: 0;
     }
 
     .container {
@@ -64,15 +71,15 @@
       width: 8px;
       height: 8px;
       background-color: gold;
-      animation: confetti-fall 3s linear infinite;
       z-index: 1;
     }
 
-    .balloon {
-      position: absolute;
-      font-size: 2rem;
-      animation: balloon-float 6s linear infinite;
-      z-index: 1;
+    .confetti.down {
+      animation: confetti-fall 4s linear infinite;
+    }
+
+    .confetti.up {
+      animation: confetti-rise 4s linear infinite;
     }
 
     @keyframes confetti-fall {
@@ -80,10 +87,22 @@
       100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
     }
 
+    @keyframes confetti-rise {
+      0% { transform: translateY(100vh) rotate(0); opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(-360deg); opacity: 0; }
+    }
+
+    .balloon {
+      position: absolute;
+      font-size: 2.5rem;
+      animation: balloon-float 7s linear infinite;
+      z-index: 1;
+    }
+
     @keyframes balloon-float {
       0% {
         transform: translateY(100vh) scale(1);
-        opacity: 1;
+        opacity: 0.9;
       }
       100% {
         transform: translateY(-10vh) scale(1.2);
@@ -103,45 +122,48 @@
   </style>
 </head>
 <body>
-  <!-- En üstte yatay dizili bayraklar -->
+  <!-- Üst ve alt bayrak -->
   <div class="bayrak-banner"></div>
+  <div class="bayrak-banner-bottom"></div>
 
-  <!-- Arka planda otomatik çalan müzik -->
+  <!-- Otomatik çalan müzik -->
   <audio autoplay loop hidden>
     <source src="23nisan.mp4" type="audio/mp4">
     Tarayıcınız ses öğesini desteklemiyor.
   </audio>
 
+  <!-- İçerik -->
   <div class="container">
     <h1 class="title">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın Kutlu Olsun! 🎉🇹🇷</h1>
     <h2 class="subtitle">Seni çok seviyorum, oğlum! ❤️😊</h2>
     <p class="signature">Baban...</p>
   </div>
 
+  <!-- JavaScript ile animasyonlar -->
   <script>
     function createConfetti() {
       const el = document.createElement('div');
-      el.className = 'confetti';
+      el.className = 'confetti ' + (Math.random() > 0.5 ? 'down' : 'up');
       el.style.left = Math.random() * window.innerWidth + 'px';
-      el.style.top = '0px';
       el.style.backgroundColor = ['gold', 'white', 'red'][Math.floor(Math.random() * 3)];
+      el.style.top = Math.random() > 0.5 ? '0px' : window.innerHeight + 'px';
       document.body.appendChild(el);
-      setTimeout(() => el.remove(), 6000);
+      setTimeout(() => el.remove(), 5000);
     }
 
     function createBalloon() {
       const el = document.createElement('div');
       el.className = 'balloon';
-      const balloons = ['🎈', '🎉', '💙', '💛', '❤️', '💚'];
-      el.textContent = balloons[Math.floor(Math.random() * balloons.length)];
+      el.textContent = '🎈'; // Beyaz emoji olmadığından sembolik
       el.style.left = Math.random() * window.innerWidth + 'px';
+      el.style.color = '#ffffff'; // Balonu beyaz yap
       el.style.top = window.innerHeight + 'px';
       document.body.appendChild(el);
-      setTimeout(() => el.remove(), 7000);
+      setTimeout(() => el.remove(), 8000);
     }
 
-    setInterval(createConfetti, 150);
-    setInterval(createBalloon, 500);
+    setInterval(createConfetti, 200);
+    setInterval(createBalloon, 600);
   </script>
 </body>
 </html>
