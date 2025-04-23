@@ -17,23 +17,19 @@
       height: 100vh;
     }
 
-    .bayrak-banner, .bayrak-banner-bottom {
-      width: 100%;
-      height: 100px;
-      background-image: url("111-bu-ipe-dizili-ucgen-turk-bayragi-imalati kopya.png");
-      background-repeat: repeat-x;
-      background-size: auto 100px;
-      position: absolute;
-      left: 0;
-      z-index: 20;
-    }
-
-    .bayrak-banner {
+    body::before {
+      content: "";
+      position: fixed;
       top: 0;
-    }
-
-    .bayrak-banner-bottom {
-      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('atatürk-siluet.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+      opacity: 0.05;
+      z-index: 0;
     }
 
     .container {
@@ -52,7 +48,6 @@
       font-size: 2.5rem;
       font-weight: bold;
       margin: 0;
-      margin-top: 120px;
     }
 
     .subtitle {
@@ -66,46 +61,61 @@
       margin-top: 60px;
     }
 
+    .flag-banner {
+      width: 100%;
+      height: 80px;
+      background-image: url('111-bu-ipe-dizili-ucgen-turk-bayragi-imalati kopya.png');
+      background-repeat: repeat-x;
+      background-size: auto 80px;
+      position: absolute;
+      z-index: 5;
+    }
+
+    .top-banner {
+      top: 0;
+    }
+
+    .bottom-banner {
+      bottom: 0;
+    }
+
+    .balloon {
+      position: absolute;
+      font-size: 2rem;
+      animation: float-up 6s ease-in-out infinite;
+      z-index: 3;
+    }
+
+    @keyframes float-up {
+      0% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
     .confetti {
       position: absolute;
       width: 8px;
       height: 8px;
       background-color: gold;
-      z-index: 1;
-    }
-
-    .confetti.down {
-      animation: confetti-fall 4s linear infinite;
-    }
-
-    .confetti.up {
-      animation: confetti-rise 4s linear infinite;
+      z-index: 2;
+      animation: confetti-fall 3s linear infinite;
     }
 
     @keyframes confetti-fall {
-      0% { transform: translateY(0) rotate(0); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-    }
-
-    @keyframes confetti-rise {
-      0% { transform: translateY(100vh) rotate(0); opacity: 1; }
-      100% { transform: translateY(-10vh) rotate(-360deg); opacity: 0; }
-    }
-
-    .balloon {
-      position: absolute;
-      font-size: 2.5rem;
-      animation: balloon-float 7s linear infinite;
-      z-index: 1;
-    }
-
-    @keyframes balloon-float {
       0% {
-        transform: translateY(100vh) scale(1);
-        opacity: 0.9;
+        transform: translateY(0) rotate(0);
+        opacity: 1;
       }
       100% {
-        transform: translateY(-10vh) scale(1.2);
+        transform: translateY(100vh) rotate(360deg);
         opacity: 0;
       }
     }
@@ -122,48 +132,61 @@
   </style>
 </head>
 <body>
-  <!-- Üst ve alt bayrak -->
-  <div class="bayrak-banner"></div>
-  <div class="bayrak-banner-bottom"></div>
+  <div class="flag-banner top-banner"></div>
+  <div class="flag-banner bottom-banner"></div>
 
-  <!-- Otomatik çalan müzik -->
-  <audio autoplay loop hidden>
-    <source src="mp3-23nisan.mp3" type="audio/mp4">
-    Tarayıcınız ses öğesini desteklemiyor.
-  </audio>
-
-  <!-- İçerik -->
   <div class="container">
-    <h1 class="title">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın Kutlu Olsun! 🎊🎉🇹🇷</h1>
+    <h1 class="title">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın Kutlu Olsun! 🎉🇹🇷</h1>
     <h2 class="subtitle">Seni çok seviyorum, oğlum! ❤️😊</h2>
-    <p class="signature">Baban... 🧔🏻</p>
+    <p class="signature">Baban...</p>
   </div>
 
-  <!-- JavaScript ile animasyonlar -->
+  <audio id="bg-music" loop>
+    <source src="23nisan.mp3" type="audio/mpeg" />
+    Tarayıcınız audio etiketini desteklemiyor.
+  </audio>
+
+  <button onclick="document.getElementById('bg-music').play()" style="
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    background-color: white;
+    color: #e30a17;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  ">
+    🎵 Müzik Başlasın
+  </button>
+
   <script>
-    function createConfetti() {
-      const el = document.createElement('div');
-      el.className = 'confetti ' + (Math.random() > 0.5 ? 'down' : 'up');
-      el.style.left = Math.random() * window.innerWidth + 'px';
-      el.style.backgroundColor = ['gold', 'white', 'red'][Math.floor(Math.random() * 3)];
-      el.style.top = Math.random() > 0.5 ? '0px' : window.innerHeight + 'px';
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 5000);
-    }
-
     function createBalloon() {
-      const el = document.createElement('div');
-      el.className = 'balloon';
-      el.textContent = '🎈'; // Beyaz emoji olmadığından sembolik
-      el.style.left = Math.random() * window.innerWidth + 'px';
-      el.style.color = '#ffffff'; // Balonu beyaz yap
-      el.style.top = window.innerHeight + 'px';
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 8000);
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.textContent = '🎈';
+      balloon.style.left = Math.random() * window.innerWidth + 'px';
+      balloon.style.top = '100vh';
+      balloon.style.fontSize = (Math.random() * 1.5 + 1.5) + 'rem';
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 6000);
     }
 
-    setInterval(createConfetti, 200);
-    setInterval(createBalloon, 600);
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+      confetti.style.top = Math.random() > 0.5 ? '0px' : '100vh';
+      confetti.style.animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse';
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 4000);
+    }
+
+    setInterval(createBalloon, 800);
+    setInterval(createConfetti, 150);
   </script>
 </body>
 </html>
