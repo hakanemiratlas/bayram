@@ -74,33 +74,34 @@
       animation: flag-sway 4s ease-in-out infinite;
     }
 
-    .flag-banner {
-      position: absolute;
+    .flag-strip {
       width: 100%;
-      height: 50px;
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png');
-      background-repeat: repeat-x;
-      background-size: contain;
-      animation: flag-banner-wave 4s linear infinite;
-      z-index: 3;
+      position: absolute;
+      display: flex;
+      justify-content: repeat;
+      background-color: transparent;
+      z-index: 10;
+      overflow: hidden;
+      animation: wave-strip 20s linear infinite;
     }
 
-    .flag-banner.top {
+    .flag-strip img {
+      height: 60px;
+      margin-right: 10px;
+      animation: wave 3s ease-in-out infinite;
+    }
+
+    .top-strip {
       top: 0;
     }
 
-    .flag-banner.bottom {
+    .bottom-strip {
       bottom: 0;
     }
 
     @keyframes flag-sway {
       0%, 100% { transform: rotate(0deg); }
       50% { transform: rotate(10deg); }
-    }
-
-    @keyframes flag-banner-wave {
-      0% { background-position: 0 0; }
-      100% { background-position: -1000px 0; }
     }
 
     @keyframes confetti-fall {
@@ -111,6 +112,16 @@
     @keyframes star-float {
       0% { transform: translateY(0); opacity: 1; }
       100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    @keyframes wave-strip {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
 
     @media (max-width: 768px) {
@@ -125,13 +136,23 @@
   </style>
 </head>
 <body>
-  <div class="flag-banner top"></div>
+  <div class="flag-strip top-strip">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
+  </div>
+
   <div class="container">
-    <h1 class="title">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın Kutlu Olsun!</h1>
-    <h2 class="subtitle">Seni çok seviyorum, oğlum! ❤️😊</h2>
+    <h1 class="title">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın Kutlu Olsun!🎉🇹🇷</h1>
+    <h2 class="subtitle">Seni çok seviyorum, oğluğum! ❤️😊</h2>
     <p class="signature">Baban...</p>
   </div>
-  <div class="flag-banner bottom"></div>
+
+  <div class="flag-strip bottom-strip">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
+  </div>
 
   <script>
     function createElement(className) {
