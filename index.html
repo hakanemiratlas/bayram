@@ -8,9 +8,11 @@
         body {
             margin: 0;
             overflow: hidden;
-            background-color: #87CEEB;
+            background-color: #e30b17; /* Türk bayrağının kırmızı arka planı */
             font-family: Arial, sans-serif;
         }
+        
+        /* Balonlar */
         .balloon {
             position: absolute;
             width: 60px;
@@ -19,6 +21,8 @@
             border-radius: 50%;
             animation: float 6s ease-in-out infinite;
         }
+
+        /* Bayraklar */
         .flag {
             position: absolute;
             width: 120px;
@@ -27,17 +31,40 @@
             background-size: cover;
             animation: swing 4s ease-in-out infinite;
         }
+
+        /* Kurdeler */
+        .ribbon {
+            position: absolute;
+            width: 120px;
+            height: 10px;
+            background-color: #FFD700;
+            animation: flutter 3s ease-in-out infinite;
+        }
+
+        /* Yıldızlar */
+        .star {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: starFloat 5s ease-in-out infinite;
+        }
+
+        /* Mesaj */
         .message {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 2em;
-            color: white;
+            font-size: 2.5em;
+            color: white; /* Yazılar beyaz */
             font-weight: bold;
             text-align: center;
             z-index: 10;
         }
+
+        /* Balon animasyonu */
         @keyframes float {
             0% {
                 transform: translateY(100vh);
@@ -46,6 +73,8 @@
                 transform: translateY(-100px);
             }
         }
+
+        /* Bayrak sallanma animasyonu */
         @keyframes swing {
             0%, 100% {
                 transform: rotate(0deg);
@@ -54,10 +83,30 @@
                 transform: rotate(10deg);
             }
         }
+
+        /* Kurdele animasyonu */
+        @keyframes flutter {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(15deg);
+            }
+        }
+
+        /* Yıldız animasyonu */
+        @keyframes starFloat {
+            0% {
+                transform: translateY(100vh);
+            }
+            100% {
+                transform: translateY(-100px);
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="message">Bayramın kutlu olsun oğlum! Seni çok seviyorum</div>
+    <div class="message">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın kutlu olsun oğlum! Seni çok seviyorum!</div>
     
     <script>
         function createBalloon() {
@@ -85,9 +134,37 @@
             }, 10000);
         }
 
-        // Create balloons and flags every 2 seconds
-        setInterval(createBalloon, 2000);
-        setInterval(createFlag, 3000);
+        function createRibbon() {
+            const ribbon = document.createElement('div');
+            ribbon.classList.add('ribbon');
+            ribbon.style.left = Math.random() * window.innerWidth + 'px';
+            ribbon.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(ribbon);
+
+            // Ribbon disappears after 8 seconds
+            setTimeout(() => {
+                ribbon.remove();
+            }, 8000);
+        }
+
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = Math.random() * window.innerWidth + 'px';
+            star.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(star);
+
+            // Star disappears after 6 seconds
+            setTimeout(() => {
+                star.remove();
+            }, 6000);
+        }
+
+        // Create balloons, flags, ribbons, and stars at intervals
+        setInterval(createBalloon, 1500); // Balloons appear every 1.5 seconds
+        setInterval(createFlag, 3000); // Flags appear every 3 seconds
+        setInterval(createRibbon, 2000); // Ribbons appear every 2 seconds
+        setInterval(createStar, 1000); // Stars appear every second
     </script>
 </body>
 </html>
