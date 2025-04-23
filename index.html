@@ -17,6 +17,16 @@
       height: 100vh;
     }
 
+    .bayrak-banner {
+      width: 100%;
+      height: auto;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 20;
+    }
+
     .container {
       display: flex;
       flex-direction: column;
@@ -33,6 +43,7 @@
       font-size: 2.5rem;
       font-weight: bold;
       margin: 0;
+      margin-top: 80px;
     }
 
     .subtitle {
@@ -69,34 +80,9 @@
     .flag {
       width: 80px;
       height: 50px;
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Flag_of_Turkey.svg/1024px-Flag_of_Turkey.svg.png');
-      background-size: cover;
+      background-color: white;
+      border: 1px solid red;
       animation: flag-sway 4s ease-in-out infinite;
-    }
-
-    .flag-strip {
-      width: 100%;
-      position: absolute;
-      display: flex;
-      justify-content: repeat;
-      background-color: transparent;
-      z-index: 10;
-      overflow: hidden;
-      animation: wave-strip 20s linear infinite;
-    }
-
-    .flag-strip img {
-      height: 60px;
-      margin-right: 10px;
-      animation: wave 3s ease-in-out infinite;
-    }
-
-    .top-strip {
-      top: 0;
-    }
-
-    .bottom-strip {
-      bottom: 0;
     }
 
     @keyframes flag-sway {
@@ -114,16 +100,6 @@
       100% { transform: translateY(-100vh); opacity: 0; }
     }
 
-    @keyframes wave {
-      0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(5deg); }
-    }
-
-    @keyframes wave-strip {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-
     @media (max-width: 768px) {
       .title, .subtitle { font-size: 2rem; }
       .signature { font-size: 1.5rem; }
@@ -136,22 +112,19 @@
   </style>
 </head>
 <body>
-  <div class="flag-strip top-strip">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
-  </div>
+  <!-- En üstte asılı bayrak görseli -->
+  <img src="111-bu-ipe-dizili-ucgen-turk-bayragi-imalati kopya.png" alt="Bayrak Süslemesi" class="bayrak-banner" />
+
+  <!-- Arka planda otomatik çalan müzik -->
+  <audio autoplay loop hidden>
+    <source src="23nisan.mp4" type="audio/mp4">
+    Tarayıcınız ses öğesini desteklemiyor.
+  </audio>
 
   <div class="container">
-    <h1 class="title">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın Kutlu Olsun!🎉🇹🇷</h1>
+    <h1 class="title">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın Kutlu Olsun! 🎉🇹🇷</h1>
     <h2 class="subtitle">Seni çok seviyorum, oğluğum! ❤️😊</h2>
     <p class="signature">Baban...</p>
-  </div>
-
-  <div class="flag-strip bottom-strip">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Flag_of_Turkey.svg/320px-Flag_of_Turkey.svg.png" alt="Türk Bayrağı" />
   </div>
 
   <script>
