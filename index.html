@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>23 Nisan Kutlama</title>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
   <style>
@@ -17,19 +17,29 @@
       height: 100vh;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
+    .flag-strip {
       width: 100%;
-      height: 100%;
-      background-image: url('atatürk-siluet.png');
-      background-repeat: no-repeat;
-      background-position: center center;
+      height: 80px;
+      background-image: url('111-bu-ipe-dizili-ucgen-turk-bayragi-imalati kopya.png');
+      background-repeat: repeat-x;
       background-size: contain;
-      opacity: 0.05;
-      z-index: 0;
+      background-position: center;
+      position: absolute;
+      z-index: 5;
+    }
+
+    .top-strip { top: 0; }
+    .bottom-strip { bottom: 0; }
+
+    .ataturk {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.04;
+      z-index: 1;
+      width: 80%;
+      max-width: 700px;
     }
 
     .container {
@@ -37,11 +47,11 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       text-align: center;
       padding: 20px;
-      z-index: 2;
+      z-index: 10;
       position: relative;
+      height: 100vh;
     }
 
     .title {
@@ -61,41 +71,20 @@
       margin-top: 60px;
     }
 
-    .flag-banner {
-      width: 100%;
-      height: 80px;
-      background-image: url('111-bu-ipe-dizili-ucgen-turk-bayragi-imalati kopya.png');
-      background-repeat: repeat-x;
-      background-size: auto 80px;
-      position: absolute;
-      z-index: 5;
-    }
-
-    .top-banner {
-      top: 0;
-    }
-
-    .bottom-banner {
-      bottom: 0;
-    }
-
     .balloon {
       position: absolute;
       font-size: 2rem;
-      animation: float-up 6s ease-in-out infinite;
-      z-index: 3;
+      animation: floatBalloon 8s linear infinite;
+      z-index: 2;
     }
 
-    @keyframes float-up {
+    @keyframes floatBalloon {
       0% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      50% {
+        transform: translateY(100vh) scale(1);
         opacity: 1;
       }
       100% {
-        transform: translateY(-100vh);
+        transform: translateY(-120vh) scale(1.2);
         opacity: 0;
       }
     }
@@ -104,20 +93,36 @@
       position: absolute;
       width: 8px;
       height: 8px;
-      background-color: gold;
+      background-color: white;
+      border-radius: 50%;
+      animation: confettiMove 5s linear infinite;
       z-index: 2;
-      animation: confetti-fall 3s linear infinite;
     }
 
-    @keyframes confetti-fall {
+    @keyframes confettiMove {
       0% {
-        transform: translateY(0) rotate(0);
+        transform: translate(0, 0) rotate(0deg);
         opacity: 1;
       }
       100% {
-        transform: translateY(100vh) rotate(360deg);
+        transform: translate(calc(-100vw + 200vw * random()), 120vh) rotate(720deg);
         opacity: 0;
       }
+    }
+
+    #music-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      background-color: white;
+      color: #e30a17;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
 
     @media (max-width: 768px) {
@@ -132,60 +137,65 @@
   </style>
 </head>
 <body>
-  <div class="flag-banner top-banner"></div>
-  <div class="flag-banner bottom-banner"></div>
+
+  <div class="flag-strip top-strip"></div>
+  <img src="ataturk-siluet.png" alt="Atatürk Silüeti" class="ataturk"/>
 
   <div class="container">
     <h1 class="title">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın Kutlu Olsun! 🎉🇹🇷</h1>
     <h2 class="subtitle">Seni çok seviyorum, oğlum! ❤️😊</h2>
-    <p class="signature">Baban... 🧔🏻</p>
+    <p class="signature">Baban... 👨‍🦰</p>
   </div>
+
+  <div class="flag-strip bottom-strip"></div>
 
   <audio id="bg-music" loop>
     <source src="mp3-23nisan.mp3" type="audio/mpeg" />
   </audio>
 
-  <button onclick="document.getElementById('bg-music').play()" style="
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 12px 20px;
-    font-size: 1rem;
-    background-color: white;
-    color: #e30a17;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  ">
-    🎵 Müzik Başlasın
-  </button>
+  <button id="music-toggle" onclick="toggleMusic()">🎵 Müzik Başlasın</button>
 
   <script>
+    // Müzik kontrolü
+    const music = document.getElementById('bg-music');
+    const toggleBtn = document.getElementById('music-toggle');
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        toggleBtn.textContent = '⏹ Müziği Durdur';
+      } else {
+        music.pause();
+        toggleBtn.textContent = '🎵 Müzik Başlasın';
+      }
+    }
+
+    // Konfeti oluştur
+    function createConfetti() {
+      const el = document.createElement('div');
+      el.className = 'confetti';
+      el.style.left = Math.random() * window.innerWidth + 'px';
+      el.style.top = Math.random() * window.innerHeight + 'px';
+      el.style.backgroundColor = ['white', 'gold', 'red', 'orange'][Math.floor(Math.random() * 4)];
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 5000);
+    }
+
+    setInterval(createConfetti, 150);
+
+    // Balon oluştur
     function createBalloon() {
       const balloon = document.createElement('div');
       balloon.className = 'balloon';
       balloon.textContent = '🎈';
       balloon.style.left = Math.random() * window.innerWidth + 'px';
       balloon.style.top = '100vh';
-      balloon.style.fontSize = (Math.random() * 1.5 + 1.5) + 'rem';
+      balloon.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
       document.body.appendChild(balloon);
-      setTimeout(() => balloon.remove(), 6000);
-    }
-
-    function createConfetti() {
-      const confetti = document.createElement('div');
-      confetti.className = 'confetti';
-      confetti.style.left = Math.random() * window.innerWidth + 'px';
-      confetti.style.top = Math.random() > 0.5 ? '0px' : '100vh';
-      confetti.style.animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse';
-      document.body.appendChild(confetti);
-      setTimeout(() => confetti.remove(), 4000);
+      setTimeout(() => balloon.remove(), 8000);
     }
 
     setInterval(createBalloon, 800);
-    setInterval(createConfetti, 150);
   </script>
 </body>
 </html>
