@@ -59,37 +59,20 @@
       margin-top: 60px;
     }
 
-    .confetti, .star, .flag {
-      position: absolute;
-      z-index: 1;
-    }
-
     .confetti {
+      position: absolute;
       width: 8px;
       height: 8px;
       background-color: gold;
       animation: confetti-fall 3s linear infinite;
+      z-index: 1;
     }
 
-    .star {
-      width: 15px;
-      height: 15px;
-      background: white;
-      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-      animation: star-float 5s linear infinite;
-    }
-
-    .flag {
-      width: 80px;
-      height: 50px;
-      background-color: white;
-      border: 1px solid red;
-      animation: flag-sway 4s ease-in-out infinite;
-    }
-
-    @keyframes flag-sway {
-      0%, 100% { transform: rotate(0deg); }
-      50% { transform: rotate(10deg); }
+    .balloon {
+      position: absolute;
+      font-size: 2rem;
+      animation: balloon-float 6s linear infinite;
+      z-index: 1;
     }
 
     @keyframes confetti-fall {
@@ -97,9 +80,15 @@
       100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
     }
 
-    @keyframes star-float {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
+    @keyframes balloon-float {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
     }
 
     @media (max-width: 768px) {
@@ -130,18 +119,29 @@
   </div>
 
   <script>
-    function createElement(className) {
+    function createConfetti() {
       const el = document.createElement('div');
-      el.className = className;
+      el.className = 'confetti';
       el.style.left = Math.random() * window.innerWidth + 'px';
-      el.style.top = Math.random() * window.innerHeight + 'px';
+      el.style.top = '0px';
+      el.style.backgroundColor = ['gold', 'white', 'red'][Math.floor(Math.random() * 3)];
       document.body.appendChild(el);
       setTimeout(() => el.remove(), 6000);
     }
 
-    setInterval(() => createElement('confetti'), 100);
-    setInterval(() => createElement('star'), 800);
-    setInterval(() => createElement('flag'), 2000);
+    function createBalloon() {
+      const el = document.createElement('div');
+      el.className = 'balloon';
+      const balloons = ['🎈', '🎉', '💙', '💛', '❤️', '💚'];
+      el.textContent = balloons[Math.floor(Math.random() * balloons.length)];
+      el.style.left = Math.random() * window.innerWidth + 'px';
+      el.style.top = window.innerHeight + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 7000);
+    }
+
+    setInterval(createConfetti, 150);
+    setInterval(createBalloon, 500);
   </script>
 </body>
 </html>
