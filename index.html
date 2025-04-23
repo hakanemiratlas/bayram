@@ -7,11 +7,60 @@
     <style>
         body {
             margin: 0;
+            padding: 0;
             overflow: hidden;
             background-color: #e30b17; /* Türk bayrağının kırmızı arka planı */
             font-family: Arial, sans-serif;
         }
-        
+
+        /* Mesaj stil */
+        .message {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3em;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            z-index: 10;
+            margin: 0;
+        }
+
+        .message-two {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            font-family: 'Caveat', cursive;
+            color: white;
+            z-index: 10;
+            margin: 0;
+        }
+
+        .message-bottom {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            z-index: 10;
+            margin: 0;
+        }
+
+        /* Konfeti stil */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #FFD700;
+            animation: confetti 3s ease-in-out infinite;
+        }
+
         /* Balonlar */
         .balloon {
             position: absolute;
@@ -51,20 +100,7 @@
             animation: starFloat 5s ease-in-out infinite;
         }
 
-        /* Mesaj */
-        .message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2.5em;
-            color: white; /* Yazılar beyaz */
-            font-weight: bold;
-            text-align: center;
-            z-index: 10;
-        }
-
-        /* Balon animasyonu */
+        /* Animasyonlar */
         @keyframes float {
             0% {
                 transform: translateY(100vh);
@@ -74,7 +110,6 @@
             }
         }
 
-        /* Bayrak sallanma animasyonu */
         @keyframes swing {
             0%, 100% {
                 transform: rotate(0deg);
@@ -84,7 +119,6 @@
             }
         }
 
-        /* Kurdele animasyonu */
         @keyframes flutter {
             0%, 100% {
                 transform: rotate(0deg);
@@ -94,7 +128,6 @@
             }
         }
 
-        /* Yıldız animasyonu */
         @keyframes starFloat {
             0% {
                 transform: translateY(100vh);
@@ -103,11 +136,54 @@
                 transform: translateY(-100px);
             }
         }
+
+        @keyframes confetti {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(500px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .message {
+                font-size: 2.5em;
+            }
+
+            .message-two {
+                font-size: 1.5em;
+            }
+
+            .message-bottom {
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .message {
+                font-size: 2em;
+            }
+
+            .message-two {
+                font-size: 1.2em;
+            }
+
+            .message-bottom {
+                font-size: 1.2em;
+            }
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="message">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın kutlu olsun oğlum! Seni çok seviyorum!</div>
-    
+    <div class="message">23 Nisan Ulusal Egemenlik ve Çocuk Bayramın kutlu olsun oğlum!</div>
+    <div class="message-two">Seni çok seviyorum, oğlum! ❤️😊</div>
+    <div class="message-bottom">Baban...</div>
+
     <script>
         function createBalloon() {
             const balloon = document.createElement('div');
@@ -160,11 +236,25 @@
             }, 6000);
         }
 
-        // Create balloons, flags, ribbons, and stars at intervals
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(confetti);
+
+            // Confetti disappears after 3 seconds
+            setTimeout(() => {
+                confetti.remove();
+            }, 3000);
+        }
+
+        // Create elements at intervals
         setInterval(createBalloon, 1500); // Balloons appear every 1.5 seconds
         setInterval(createFlag, 3000); // Flags appear every 3 seconds
         setInterval(createRibbon, 2000); // Ribbons appear every 2 seconds
         setInterval(createStar, 1000); // Stars appear every second
+        setInterval(createConfetti, 100); // Confetti appears every 100ms
     </script>
 </body>
 </html>
